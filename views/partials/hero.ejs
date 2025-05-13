@@ -1,0 +1,31 @@
+<div class="container mt-4 mb-2 bg-dark-subtle text-center">
+  <div class="row align-items-start" style="height: 150px">
+    <div class="col-sm-4 mt-5">
+      <h3 id="greetings"></h3>
+      <p id="date"></p>
+    </div>
+    <div class="col text-end mt-5 me-5">
+      <input type="date" name="selectDate" id="selectDate" placeholder="" class="form-control d-inline"
+        style="width: 200px" oninput="selectedDate()" />
+    </div>
+    <div id="results" style="display: none">
+      <p>No results found</p>
+    </div>
+  </div>
+  <div class="row align-items-start ms-5" style="height: 700px">
+    <div class="col-7 p-3 text-start position-absolute ms-5">
+      <div class="dataGrid">
+        <ul class="list-group">
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2 me-5" style="height: 60px">
+    <button type="button" class="btn btn-dark" name="addNewTask" id="addNewTask" onclick="managePopup()">
+      + New Task
+    </button>
+  </div>
+  <%- include("./task") %>
+</div>
+
+<script type="text/javascript" src="/script.js" defer></script>

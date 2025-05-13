@@ -1,0 +1,15 @@
+<div id="popupContainer">
+  <form onsubmit="return addTask(event)" id="createtask">
+    <div id="popupDialog" class="hidden" style="width: 30%">
+      <a href="#" class="close" onclick="managePopup()"></a>
+      <div class="mb-3">
+        <input type="text" name="title" id="title" placeholder="Create new task" required="required"
+          class="form-control" />
+      </div>
+      <input type="date" id="taskDate" name="taskDate" required="required" min="" class="form-control" />
+      <button type="submit" id="submit" name="submit" class="btn btn-dark mt-3">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
