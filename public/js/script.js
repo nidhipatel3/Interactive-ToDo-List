@@ -81,6 +81,12 @@ function generateGrid(task) {
     ul.appendChild(li);
 }
 
+// disable previous date
+const currentFormatedDate = new Date().toJSON().slice(0, 10);
+const disablePreviousDate = document
+    .getElementById("taskDate")
+    .setAttribute("min", currentFormatedDate);
+
 // update task status
 function updateTaskStatus(taskId, status, label) {
     if (status) {
@@ -93,6 +99,48 @@ function updateTaskStatus(taskId, status, label) {
         headers: { "Content-Type": "application/json" },
     });
 }
+
+// filter data by selected date
+function selectedDate() {
+    selectDate = new Date(document.getElementById("selectDate").value)
+        .toJSON()
+        .slice(0, 10);
+    if (currentFormatedDate === selectDate) {
+        document.getElementById("selectDate").placeholder = "Today";
+    } else {
+        document.getElementById("selectDate").placeholder = `${selectDate}`;
+    }
+
+    // clear old grid data
+    const ul = document.querySelector(".list-group");
+    ul.innerHTML = "";
+
+    const date = document.getElementById("selectDate").value;
+
+    fetch(`http://localhost:9001/task/filter?date=${date}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+    })
+        .then((res) => res.json())
+        .then((data) => {
+            const result = document.getElementById("results");
+
+            if (data.length > 0) {
+                result.style.display = "none";
+                data.forEach((task) => generateGrid(task));
+            } else {
+                result.style.display = "block";
+            }
+        });
+}
+
+// display current date data on pageload
+document.addEventListener("DOMContentLoaded", () => {
+    const dateSelector = document.getElementById("selectDate");
+    const todaysDate = new Date().toJSON().slice(0, 10);
+    dateSelector.setAttribute("value", todaysDate);
+    selectedDate();
+});
 
 // delete task
 function deleteTask(taskId) {
